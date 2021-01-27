@@ -1,8 +1,10 @@
 'use strict';
 
-const Mcp9808 = require('mcp9808-temperature-sensor');
-var os = require("os");
+const mcp9808 = require('mcp9808-temperature-sensor');
+var os = require('os');
 var hostname = os.hostname();
+
+const fixed2 = number => (Math.round(number * 100) / 100).toFixed(2);
 
 let Service, Characteristic;
 
@@ -10,14 +12,13 @@ module.exports = (homebridge) => {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
 
-    homebridge.registerAccessory('homebridge-mcp9808', 'MCP9808', MCP9808Plugin);
+    homebridge.registerAccessory('@iainfarq/homebridge-mcp9808', 'MCP9808', MCP9808Plugin);
 };
 
 class MCP9808Plugin {
     constructor(log, config) {
         this.log = log;
         this.name = config.name;
-        this.name_temperature = config.name_temperature || this.name;
         this.refresh = config['refresh'] || 60; // Update every minute
         this.options = config.options || {};
         
@@ -32,22 +33,22 @@ class MCP9808Plugin {
         this.informationService
             .setCharacteristic(Characteristic.Manufacturer, "Microchip Technology Inc.")
             .setCharacteristic(Characteristic.Model, "MCP9808")
+            .setCharacteristic(Characteristic.SerialNumber, hostname + "-" + hostname)
             .setCharacteristic(Characteristic.FirmwareRevision, require('./package.json').version);
 
-        Mcp9808.open(this.options)
+        mcp9808.open(this.options)
             .then((sensor) => {
                 this.log(`MCP9808 initialization succeeded`);
                 this.sensor = sensor;
                 this.init = true;
 
-        this.informationService
-            .setCharacteristic(Characteristic.SerialNumber, sensor.manufacturerId() + "-" + sensor.deviceId());
-                this.devicePolling.bind(this);
+        // this.informationService
+        //     .setCharacteristic(Characteristic.SerialNumber, sensor.manufacturerId() + "-" + sensor.deviceId());
+        //         this.devicePolling.bind(this);
             })
             .catch(err => this.log(`MCP9808 initialization failed: ${err} `));
 
-
-        this.temperatureService = new Service.TemperatureSensor(this.name_temperature);
+        this.temperatureService = new Service.TemperatureSensor(this.name);
 
         this.temperatureService
             .getCharacteristic(Characteristic.CurrentTemperature)
@@ -68,7 +69,7 @@ class MCP9808Plugin {
         if (this.sensor) {
             this.sensor.temperature()
                 .then((temp) => {
-                    this.log(`MCP9808 temp = ${temp.celsius} °C`);
+                    this.log(`${fixed2(temp.celsius)}°C`);
                     this.temperatureService
                         .setCharacteristic(Characteristic.CurrentTemperature, temp.celsius);
                 })
@@ -77,7 +78,7 @@ class MCP9808Plugin {
                     console.log(err.stack);
                 });
         } else {
-            this.log("Error: MCP9808 not initalized");
+            this.log("Error: MCP9808 not initialized");
         }
     }
 

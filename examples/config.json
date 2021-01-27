@@ -1,0 +1,24 @@
+{
+  "bridge": {
+    "name": "Homebridge",
+    "username": "CC:46:3D:E3:CE:30",
+    "port": 51826,
+    "pin": "031-45-154"
+  },
+  "description": "Config file for raspberry pi running MCP9808 temperature sensor",
+
+  "accessories": [
+    {
+      "accessory": "MCP9808",
+      "name": "Temperature",
+      "refresh": 60,
+      "options": {
+        "i2cBusNumber": 1,
+        "i2cAddress": "0x18"
+      }
+    }
+  ],
+
+  "platforms": [
+  ]
+}

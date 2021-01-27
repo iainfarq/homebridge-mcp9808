@@ -1,23 +1,18 @@
 {
-  "name": "homebridge-mcp9808",
-  "version": "1.0.0",
-  "description": "A homebridge plugin for the Microchip MCP9808 temperature sensor on RaspberryPi",
-  "main": "sensor.js",
-  "engines": {
-    "node": ">=6.5.0",
-    "homebridge": ">=0.4.27"
+  "author": "iainfarq",
+  "bugs": {
+    "url": "https://github.com/iainfarq/homebridge-mcp9808/issues"
   },
   "dependencies": {
     "mcp9808-temperature-sensor": "^1.0.13"
   },
+  "description": "A homebridge plugin for the Microchip MCP9808 temperature sensor on RaspberryPi",
   "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "engines": {
+    "node": ">=10.17.0",
+    "homebridge": ">=1.1.7"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/iainfarq/homebridge-mcp9808.git"
-  },
+  "homepage": "https://github.com/iainfarq/homebridge-mcp9808#readme",
   "keywords": [
     "homebridge",
     "homebridge-plugin",
@@ -27,10 +22,15 @@
     "homekit",
     "mcp9808"
   ],
-  "author": "Iain Farquharson",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/iainfarq/homebridge-mcp9808/issues"
+  "main": "sensor.js",
+  "name": "@iainfarq/homebridge-mcp9808",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iainfarq/homebridge-mcp9808.git"
   },
-  "homepage": "https://github.com/iainfarq/homebridge-mcp9808#readme"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.1.3"
 }
