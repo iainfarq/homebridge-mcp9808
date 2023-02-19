@@ -1,0 +1,40 @@
+{
+  "pluginAlias": "MCP9808",
+  "pluginType": "accessory",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "Temperature",
+        "required": true
+      },
+      "refresh": {
+        "title": "Refresh interval (seconds)",
+        "type": "number",
+        "default": 60,
+        "minimum": 5,
+        "maximum": 600
+      },
+      "options": {
+        "type": "object",
+        "title": "i2c Options",
+        "properties": {
+          "i2cAddress": {
+            "title": "Address",
+            "type": "string",
+            "default": "0x18",
+            "enum": [
+              "0x18","0x19","0x1a","0x1b","0x1c","0x1d","0x1e","0x1f"]
+          },
+          "i2cBusNumber": {
+            "title": "Bus number",
+            "type": "number",
+            "default": 1
+          }
+        }
+      }
+    }
+  }
+}
