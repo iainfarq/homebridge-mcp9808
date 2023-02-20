@@ -1,6 +1,8 @@
 {
   "pluginAlias": "MCP9808",
   "pluginType": "accessory",
+  "headerDisplay": "Homebridge plugin for MCP9808 temperature sensor",
+  "footerDisplay": "",
   "schema": {
     "type": "object",
     "properties": {
